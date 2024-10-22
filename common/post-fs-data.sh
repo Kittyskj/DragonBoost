@@ -1,7 +1,5 @@
 #!/system/bin/sh
 
-# Menulis data ke dalam berkas (file) jika berkas ada dan izin menulis sudah ada atau belum ada,
-# memberikan izin menulis jika belum ada, dan kemudian data ditulis ke dalam berkas tersebut.
 write() {
     local path="$1"
     local data="$2"
@@ -14,12 +12,10 @@ write() {
     fi
 }
 
-# Jangan merubah apapun yang ada disini!
 MODDIR=${0%/*}
 write /proc/sys/vm/page-cluster 0
 write /sys/block/zram0/max_comp_streams 4
 
-# Settingan Untuk Mempercepat GPU Ke performance
 setprop debug.composition.type c2d
 setprop debug.composition.type gpu
 setprop debug.enabletr true
@@ -45,3 +41,16 @@ setprop ro.vendor.qti.sys.fw.bg_apps_limit 120
 setprop ro.vendor.qti.sys.fw.bservice_enable true
 setprop ro.vendor.qti.core.ctl_max_cpu 8
 setprop ro.vendor.qti.core.ctl_min_cpu 2
+
+for gpu in /sys/class/kgsl/kgsl-3d0
+do
+    echo "2" > $gpu/adrenoboost
+    echo "3" > $gpu/bus_split
+    echo "1" > $gpu/bus_scale
+    echo "1" > $gpu/force_clk_on
+    echo "1" > $gpu/force_bus_on
+    echo "1" > $gpu/force_rail_on
+    echo "1" > $gpu/force_no_nap
+    echo "80" > $gpu/idle_timer
+    echo "0" > $gpu/max_pwrlevel
+done
