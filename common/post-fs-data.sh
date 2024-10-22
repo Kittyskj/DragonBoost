@@ -43,5 +43,5 @@ setprop persist.vendor.color.matrix 2
 setprop vendor.gralloc.disable_ubwc 0
 setprop ro.vendor.qti.sys.fw.bg_apps_limit 120
 setprop ro.vendor.qti.sys.fw.bservice_enable true
-setprop ro.vendor.qti.core.ctl_max_cpu 4
+setprop ro.vendor.qti.core.ctl_max_cpu 8
 setprop ro.vendor.qti.core.ctl_min_cpu 2
